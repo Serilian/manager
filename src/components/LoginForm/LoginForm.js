@@ -5,7 +5,7 @@ import {CustomButton, Card, CardSection, Input, Spinner} from '../common';
 import {connect} from 'react-redux';
 import {onLogin, setUser} from "../../store/actions/auth";
 
-const LoginForm = ({onLogin, setUser}) => {
+const LoginForm = ({onLogin, setUser, loading}) => {
 
     const [inputData, setInputData] = useState({
         email: '',
@@ -33,7 +33,7 @@ const LoginForm = ({onLogin, setUser}) => {
                 setUser(user);
                 return subscriber;
             })
-        }, []
+        }, [loading]
     );
 
 
@@ -42,7 +42,7 @@ const LoginForm = ({onLogin, setUser}) => {
     };
 
     const renderButton = () => {
-        if (false) {
+        if (loading) {
             return <Spinner size="small"/>;
         }
 
@@ -100,5 +100,8 @@ const styles = {
     }
 };
 
+const mapStateToProps = state => ({
+   loading: state.ui.loading
+});
 
-export default connect(null, {onLogin, setUser})(LoginForm);
+export default connect(mapStateToProps, {onLogin, setUser})(LoginForm);

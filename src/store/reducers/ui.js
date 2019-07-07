@@ -1,23 +1,21 @@
-import {CREATE_USER, LOGIN_USER, SET_USER} from '../actions/ActionTypes';
+import {START_LOADING, STOP_LOADING} from '../actions/ActionTypes';
 
 const initialState = {
-    loggedIn: false,
-    user: {}
+    loading: false
 };
 
 const reducer = (state = initialState, action) => {
-    const {type, payload} = action;
+    const {type} = action;
     switch (type) {
-        case LOGIN_USER:
+        case START_LOADING:
             return {
                 ...state,
-                loggedIn: true
+                loading: true
             };
-        case SET_USER:
-        case CREATE_USER:
+        case STOP_LOADING:
             return {
                 ...state,
-                user: payload
+                loading: false
             };
         default:
             return state;
