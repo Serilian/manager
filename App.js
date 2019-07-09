@@ -10,6 +10,7 @@ import {
 import {Header} from './src/components/common';
 import Alerts from './src/components/Alerts/Alerts';
 import {connect} from 'react-redux';
+import Router from "./src/Router";
 
 
 import LoginForm from "./src/components/LoginForm/LoginForm";
@@ -20,9 +21,8 @@ const App = ({alerts}) => {
     return (
         <Fragment>
             <SafeAreaView style={styles.container}>
-                <Header text="Enter credentials" />
                 <Alerts alerts={alerts}/>
-                <LoginForm/>
+                <Router/>
             </SafeAreaView>
         </Fragment>
     );
