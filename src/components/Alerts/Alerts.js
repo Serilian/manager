@@ -6,9 +6,9 @@ import { connect } from "react-redux";
 const Alert = ({ alerts }) => {
 
     return (
-        <View>
+        <View >
             {alerts !== null && alerts.length > 0 ? alerts.map(alert => (
-                <Text key={alert.id}>{alert.msg}</Text>)) : null}
+                <Text style={{backgroundColor: 'red', padding: 10, color: 'white', textAlign: 'center'}} key={alert.id}>{alert.msg}</Text>)) : null}
         </View>
         );
 };

@@ -3,9 +3,9 @@ import {Text, View} from 'react-native';
 import firebase from 'firebase';
 import {CustomButton, Card, CardSection, Input, Spinner} from '../common';
 import {connect} from 'react-redux';
-import {onLogin, setUser} from "../../store/actions/auth";
+import {onLogin, setUser, removeUser} from "../../store/actions/auth";
 
-const LoginForm = ({onLogin, setUser, loading}) => {
+const LoginForm = ({onLogin, setUser, loading, removeUser}) => {
 
     const [inputData, setInputData] = useState({
         email: '',
@@ -30,15 +30,17 @@ const LoginForm = ({onLogin, setUser, loading}) => {
 
     useEffect(() => {
             const subscriber = firebase.auth().onAuthStateChanged((user) => {
-                setUser(user);
+                if(user) setUser(user);
+                if(!user) removeUser();
                 return subscriber;
             })
-        }, [loading]
+        }, [setUser, removeUser]
     );
 
 
     const loginHandler = ()=> {
         onLogin(inputData.email, inputData.password);
+        setInputData({email: '', password: ''});
     };
 
     const renderButton = () => {
@@ -104,4 +106,4 @@ const mapStateToProps = state => ({
    loading: state.ui.loading
 });
 
-export default connect(mapStateToProps, {onLogin, setUser})(LoginForm);
+export default connect(mapStateToProps, {onLogin, setUser, removeUser})(LoginForm);

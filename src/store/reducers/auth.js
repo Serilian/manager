@@ -1,4 +1,4 @@
-import {CREATE_USER, LOGIN_USER, SET_USER} from '../actions/ActionTypes';
+import {CREATE_USER, LOGIN_USER, REMOVE_USER, SET_USER} from '../actions/ActionTypes';
 
 const initialState = {
     loggedIn: false,
@@ -19,6 +19,12 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 user: payload
             };
+        case REMOVE_USER:
+            return {
+                ...state,
+                user: null,
+                loggedIn: false
+        };
         default:
             return state;
     }
