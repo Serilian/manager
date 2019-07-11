@@ -7,32 +7,26 @@ import {
     Text,
     StatusBar,
 } from 'react-native';
-import {Header} from './src/components/common';
 import Alerts from './src/components/Alerts/Alerts';
 import {connect} from 'react-redux';
 import Router from "./src/Router";
-
-
-import LoginForm from "./src/components/LoginForm/LoginForm";
-
 
 
 const App = ({alerts}) => {
     return (
         <Fragment>
             <SafeAreaView style={styles.container}>
-                <Alerts alerts={alerts}/>
                 <Router/>
             </SafeAreaView>
+            <Alerts alerts={alerts}/>
         </Fragment>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
-        flex:1,
+        flex: 1,
         flexDirection: 'column',
-
     }
 });
 

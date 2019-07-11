@@ -1,7 +1,8 @@
 import firebase from 'firebase';
 import {LOGIN_USER, SET_USER, CREATE_USER, REMOVE_USER} from "./ActionTypes";
-import {setAlert} from "./alerts";
+import {clearAlerts, setAlert} from "./alerts";
 import {UIStartLoading, UIStopLoading} from "./UI";
+import {Actions} from 'react-native-router-flux';
 
 export const onLogin = (email, password) => async (dispatch) => {
 
@@ -12,6 +13,8 @@ export const onLogin = (email, password) => async (dispatch) => {
             type: LOGIN_USER
         });
         dispatch(setAlert("Login successful"));
+        dispatch(clearAlerts());
+        Actions.main();
 
     } catch (err) {
         if (err.code === "auth/user-not-found") {

@@ -1,4 +1,4 @@
-import { SET_ALERT, REMOVE_ALERT } from "../actions/ActionTypes";
+import {SET_ALERT, REMOVE_ALERT, CLEAR_ALERTS} from "../actions/ActionTypes";
 
 const initialState = []
 ;
@@ -11,6 +11,8 @@ const reducer = (state = initialState, action) => {
             return [...state, payload];
         case REMOVE_ALERT:
             return state.filter(alert => alert.id !== payload);
+        case CLEAR_ALERTS:
+            return initialState;
         default:
             return state;
     }

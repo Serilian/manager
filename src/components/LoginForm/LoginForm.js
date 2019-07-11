@@ -4,6 +4,7 @@ import firebase from 'firebase';
 import {CustomButton, Card, CardSection, Input, Spinner} from '../common';
 import {connect} from 'react-redux';
 import {onLogin, setUser, removeUser} from "../../store/actions/auth";
+import {Actions} from 'react-native-router-flux';
 
 const LoginForm = ({onLogin, setUser, loading, removeUser}) => {
 
@@ -11,7 +12,6 @@ const LoginForm = ({onLogin, setUser, loading, removeUser}) => {
         email: '',
         password: ''
     });
-
 
     const onChangeEmail = (text) => {
         setInputData({
@@ -27,10 +27,12 @@ const LoginForm = ({onLogin, setUser, loading, removeUser}) => {
         })
     };
 
-
     useEffect(() => {
             const subscriber = firebase.auth().onAuthStateChanged((user) => {
-                if(user) setUser(user);
+                if(user) {
+                    setUser(user);
+                    Actions.main();
+                }
                 if(!user) removeUser();
                 return subscriber;
             })
@@ -83,11 +85,6 @@ const LoginForm = ({onLogin, setUser, loading, removeUser}) => {
             </Text>
             <CardSection>
                 {renderButton()}
-            </CardSection>
-            <CardSection>
-                <CustomButton onPress={() => firebase.auth().signOut()}>
-                    Log out
-                </CustomButton>
             </CardSection>
         </Card>
     );
