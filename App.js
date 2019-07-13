@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react';
+import React, {Fragment, useEffect} from 'react';
 import {
     SafeAreaView,
     StyleSheet,
@@ -13,6 +13,9 @@ import Router from "./src/Router";
 
 
 const App = ({alerts}) => {
+
+
+
     return (
         <Fragment>
             <SafeAreaView style={styles.container}>

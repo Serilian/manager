@@ -1,25 +1,42 @@
-import React from 'react';
-import {View, Text} from 'react-native';
+import React, {useEffect} from 'react';
+import _ from 'lodash';
+import {View, Text, FlatList, TouchableOpacity} from 'react-native';
 import {connect} from 'react-redux';
-import {Card, CardSection} from "../common";
+import {CardSection, Spinner} from "../common";
+import {getEmployees} from "../../store/actions/employees";
 
-const EmployeeList = ({employees}) => {
-    return (
-        <View style={{backgroundColor: 'white'}}>
-            {employees !==null && employees.length > 0 ?
-                (employees.map(emp => (
-                    <Card key={emp.phone} style={{padding: 10}}>
-                        <Text>{emp.name}</Text>
-                        <Text>{emp.phone}</Text>
-                        <Text>{emp.shift}</Text>
-                    </Card>
-                ))) : (<Text>No employees to show</Text>) }
-        </View>
-    );
+import ListItem from "./ListItem";
+
+
+const EmployeeList = ({employees, getEmployees, loading}) => {
+
+        useEffect(() => {
+            getEmployees();
+        }, []);
+
+        return (
+
+            <View>
+                {loading && employees.length === 0 ? (<Spinner style={{marginTop: 80}}/>) : (<FlatList
+                    keyExtractor={emp => emp.uid}
+                    data={employees}
+                    renderItem={emp =>
+                        <ListItem employee={emp} />
+                    }/>)}
+            </View>
+        )
+    }
+;
+
+const mapStateToProps = state => {
+
+    const employees = _.map(state.employees, (val, uid) => {
+        return {...val, uid}
+    });
+    return {
+        employees,
+        loading: state.ui.loading
+    };
 };
 
-const mapStateToProps = state => ({
-    employees: state.employees
-});
-
-export default connect(mapStateToProps)(EmployeeList);
+export default connect(mapStateToProps, {getEmployees})(EmployeeList);

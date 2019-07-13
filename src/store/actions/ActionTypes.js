@@ -9,3 +9,4 @@ export const START_LOADING = "START_LOADING";
 export const STOP_LOADING = "STOP_LOADING";
 
 export const ADD_EMPLOYEE= "ADD_EMPLOYEE";
+export const GET_EMPLOYEES="GET_EMPLOYEES";
